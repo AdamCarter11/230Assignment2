@@ -1,4 +1,4 @@
 ﻿  Source.cpp
-C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(86,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(86,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(205,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(205,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   230Assignment2.vcxproj -> C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Debug\230Assignment2.exe
