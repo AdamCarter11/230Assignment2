@@ -12,6 +12,9 @@ using namespace std;
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <algorithm>
+
 
 //global variables
 
@@ -88,8 +91,19 @@ void handleInput(RenderWindow& window, Event& e) {
     //play sfx on mouse click
     //e.type == Event::MouseButtonPressed
     if (Mouse::isButtonPressed(Mouse::Left)) {
-        placedSprites.push_back(spriteArr[whichSprite]);
-        spriteTextures.push_back(whichSprite);
+        bool canPlace = true;
+        for (Sprite X : placedSprites) {
+            if (X.getPosition().x == spriteArr[whichSprite].getPosition().x && X.getPosition().y == spriteArr[whichSprite].getPosition().y) {
+                X.setTexture(tileTexture[whichSprite]);
+                cout << "overlayed sprite : " + to_string(whichSprite) << endl;
+                cout << X.getTexture() << endl;
+                canPlace = false;
+            }
+        }
+        if (canPlace) {
+            placedSprites.push_back(spriteArr[whichSprite]);
+            spriteTextures.push_back(whichSprite);
+        }
     }
     if (Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         whichSprite++;
@@ -135,12 +149,19 @@ void handleInput(RenderWindow& window, Event& e) {
         //Creates a stream and opens text file
         ifstream readFile;
         readFile.open("level.txt");
-
+        string line;
         //if the file is open, then continue to read in until end of file
         if (readFile.is_open()) {
             cout << "start" << endl;
             while (!readFile.eof()) {
-               
+                while (getline(readFile, line)) {
+                    Sprite tempSprite;
+                    auto tempString = splitSentence(line);
+                    cout << " " << tempString[2] << endl;
+                    tempSprite.setTexture(tileTexture[stoi(tempString[0])]);
+                    tempSprite.setPosition(stoi(tempString[1]), stoi(tempString[2]));
+                    placedSprites.push_back(tempSprite);
+                }
 
             }
         }
@@ -158,9 +179,6 @@ string* splitSentence(string stringToSplit) {
     string word = "";
     for (auto x : stringToSplit)
     {
-        if (x == ' ') {
-            cout << "SPACE" << endl;
-        }
         if (x == ' ')
         {
             arrayOfWords[i] = word;
@@ -172,7 +190,8 @@ string* splitSentence(string stringToSplit) {
             
         }
     }
-
+    arrayOfWords[i] = word;
+    word = "";
     return arrayOfWords;
 }
 
