@@ -145,7 +145,7 @@ void handleInput(RenderWindow& window, Event& e) {
 
     //load sprites from a text file
     if (Keyboard::isKeyPressed(Keyboard::L)) {
-
+        placedSprites.clear();
         //Creates a stream and opens text file
         ifstream readFile;
         readFile.open("level.txt");
