@@ -15,9 +15,7 @@ using namespace std;
 #include <vector>
 #include <algorithm>
 
-
 //global variables
-
 Sprite tileSprite;
 const int spriteCount = 21;
 Texture tileTexture[spriteCount];
@@ -39,22 +37,10 @@ string* splitSentence(string stringToSplit);
 
 int main()
 {
-    //creating a render window
-    RenderWindow window(sf::VideoMode(tileSize*gridWidth, tileSize*gridHeight), "SFML works!");
+    //creating a render window to match the sprite size, can be made larger or smaller by changing the grid variables
+    RenderWindow window(sf::VideoMode(tileSize*gridWidth, tileSize*gridHeight), "Tilemap Editor");
 
-    //create and fill circle
-    CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    //Sprite
-    /*
-    if (!tileTexture.loadFromFile("Assets/sprites/Platformer-0.png")) {
-        //file didn't load properly
-        return -1;
-    }
-    tileSprite.setTexture(tileTexture);
-    tileSprite.setPosition(365, 530);
-    */
+    //used to load in the sprites into an array
     whichSprite = 0;
     for (int i = 0; i < spriteCount; i++) {
         string tempFileName = ("Assets/sprites/Platformer-" + to_string(i) + ".png");
@@ -66,9 +52,7 @@ int main()
         tileSprite.setTexture(tileTexture[i]);
         spriteArr[i] = tileSprite;     
     }
-    
 
-    //copy paste into every project (it's used for quitting)
     while (window.isOpen())
     {
         Event event;
@@ -88,23 +72,26 @@ void handleInput(RenderWindow& window, Event& e) {
     if (e.type == Event::Closed)
         window.close();
 
-    //play sfx on mouse click
-    //e.type == Event::MouseButtonPressed
+    //used to place a sprite
     if (Mouse::isButtonPressed(Mouse::Left)) {
         bool canPlace = true;
-        for (Sprite X : placedSprites) {
+        int i = 0;
+        for (Sprite &X : placedSprites) {
             if (X.getPosition().x == spriteArr[whichSprite].getPosition().x && X.getPosition().y == spriteArr[whichSprite].getPosition().y) {
                 X.setTexture(tileTexture[whichSprite]);
-                cout << "overlayed sprite : " + to_string(whichSprite) << endl;
-                cout << X.getTexture() << endl;
+                spriteTextures[i] = whichSprite;
                 canPlace = false;
             }
+            i++;
         }
+        //checks if you are trying to erase or not to make sure the value doesn't get overriden
         if (canPlace) {
             placedSprites.push_back(spriteArr[whichSprite]);
             spriteTextures.push_back(whichSprite);
         }
     }
+
+    //used to cycle through the sprites
     if (Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         whichSprite++;
         if (whichSprite >= spriteCount) {
@@ -118,6 +105,8 @@ void handleInput(RenderWindow& window, Event& e) {
             whichSprite = spriteCount - 1;
         }
     }
+
+    //saves a png
     if (Keyboard::isKeyPressed(Keyboard::Space)) {
         Texture texture;
         texture.create(window.getSize().x, window.getSize().y);
@@ -172,6 +161,13 @@ void handleInput(RenderWindow& window, Event& e) {
     }
 }
 
+/*
+*   Used to split a string into words (split based on spaces)
+*       Parameters: 
+*           stringToSplit - a string, in this case, a sentence that contains 3 seperate values
+*       Returns:
+*           an array of size 3, each value is a seperate word (in this case, number)
+*/
 string* splitSentence(string stringToSplit) {
     cout << stringToSplit;
     string* arrayOfWords = new string[3];
@@ -195,6 +191,7 @@ string* splitSentence(string stringToSplit) {
     return arrayOfWords;
 }
 
+//Used to combine values into a string, mainly just a function to keep my code a little cleaner
 string convertToString(Sprite spriteToConvert, int position) {
     string stringToReturn;
 
@@ -204,12 +201,14 @@ string convertToString(Sprite spriteToConvert, int position) {
 }
 
 void update(RenderWindow& window) {
+    //used to make the sprites move on a grid
+    //X
     int xPos = Mouse::getPosition().x;
     xPos = xPos - (xPos % 70);
-    
+    //Y
     int yPos = Mouse::getPosition().y;
     yPos = yPos - (yPos % 70);
-    //-600, -310
+    //Increments of 70 to make it line up properly with the window as the sprites are 70x70
     spriteArr[whichSprite].setPosition(xPos-windowX + 140, yPos-windowY/2 + 140);
 }
 
@@ -221,8 +220,10 @@ void render(RenderWindow& window) {
     //used for updating the window
     window.clear();
 
+    //the sprite that is being used by the mouse
     window.draw(spriteArr[whichSprite]);
-    //window.draw(spriteArr[2]);
+
+    //the placed sprites
     for (Sprite X : placedSprites) {
         window.draw(X);
     }
