@@ -1,6 +1,6 @@
 ﻿  Source.cpp
-C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(151,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(151,48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(212,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(212,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(163,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(163,48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(224,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Source.cpp(224,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   230Assignment2.vcxproj -> C:\Users\Adam\Documents\GitHub\230Assignment2\230Assignment2\Debug\230Assignment2.exe

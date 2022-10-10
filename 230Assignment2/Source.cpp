@@ -91,6 +91,18 @@ void handleInput(RenderWindow& window, Event& e) {
         }
     }
 
+    //used to erase a sprite
+    if (Mouse::isButtonPressed(Mouse::Right)) {
+        int i = 0;
+        for (Sprite& X : placedSprites) {
+            if (X.getPosition().x == spriteArr[whichSprite].getPosition().x && X.getPosition().y == spriteArr[whichSprite].getPosition().y) {
+                placedSprites.erase(placedSprites.begin() + i);
+                spriteTextures.erase(spriteTextures.begin() + i);
+            }
+            i++;
+        }
+    }
+
     //used to cycle through the sprites
     if (Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         whichSprite++;
